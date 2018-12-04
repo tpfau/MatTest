@@ -7,11 +7,12 @@ function coverageStruct = setupCoverageData(files)
 % OUTPUT:
 %    coverageStruct:    A struct array with the following fields:
 %                        * .fileName - the file name
-%                        * .coverage - a n x 2 double array with n being the number of relevant lines in the file, while the first column indicates the line number and the second column indicates the number of executions
+%                        * .relevantLines - a n x 2 double array with n being the number of relevant lines in the file, while the first column indicates the line number and the second column indicates the number of executions
+%                        * .lineCount - the number of lines in the file.
 % ..Author
 %    - Thomas Pfau
 
-coverageStruct = struct('fileName','fileName','relevantLines',1);
+coverageStruct = struct('fileName','fileName','relevantLines',1, 'lineCount',0);
 coverageStruct(numel(files)).fileName = 'end';
 for i = 1:length(files)
     cFileName = files{i};
@@ -25,6 +26,7 @@ for i = 1:length(files)
     coverageStruct(i).fileName = cFileName;
     coverageStruct(i).relevantLines = relevantLines;
     coverageStruct(i).lineCount = numel(lines);
+    coverageStruct(i).lines = lines;
 end
 
 profile on
