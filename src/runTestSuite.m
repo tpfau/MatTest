@@ -1,8 +1,8 @@
 function [results, resultTable, coverageData] = runTestSuite(testNames, skipErrorID, workingDir, sourceFiles)
-% This function runs all tests (i.e. files starting with 'test' in the
-% CBTDIR/test/ folder and returns the status.
+% This function runs all tests indicated via the testNames wildcard,
+% creating coverage data for all sourceFiles indicated
 % It can distinguish between skipped and Failed tests. A test is considered
-% to be skipped if it throws an error with the given skipID.
+% to be skipped if it throws an error with the given skipErrorID.
 %
 % INPUTS:
 %
