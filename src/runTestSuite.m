@@ -1,4 +1,4 @@
-function [results, resultTable, coverageData] = runTestSuite(testNames, skipErrorID, workingDir)
+function [results, resultTable, coverageData] = runTestSuite(testNames, skipErrorID, workingDir, sourceFiles)
 % This function runs all tests (i.e. files starting with 'test' in the
 % CBTDIR/test/ folder and returns the status.
 % It can distinguish between skipped and Failed tests. A test is considered
@@ -11,6 +11,7 @@ function [results, resultTable, coverageData] = runTestSuite(testNames, skipErro
 %    skipErrorID:      name of the ID to be used to indicate, that an
 %                      error, is actually supposed to indicate a skipped test 
 %    workingDir:       The working directory for the test suite.
+%    sourceDir:        The source directory
 %
 % OUTPUTS:
 %
@@ -37,7 +38,7 @@ TESTSUITE_SKIP_ERROR_ID = skipErrorID;
 
 % go to the test directory.
 currentDir = cd(workingDir);
-coverageData = setupCoverageData();
+coverageData = setupCoverageData(sourceFiles);
 % get all names of test files
 testFiles = rdir(testNames);
 testFileNames = {testFiles.name};

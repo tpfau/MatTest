@@ -1,4 +1,4 @@
-function coverageStruct = setupCoverageData()
+function coverageStruct = setupCoverageData(files)
 % set up the Coverage data, i.e. scan through all files in src and extract
 % their relevant lines.
 % USAGE:
@@ -11,9 +11,7 @@ function coverageStruct = setupCoverageData()
 % ..Author
 %    - Thomas Pfau
 
-global CBTDIR
 coverageStruct = struct('fileName','fileName','relevantLines',1);
-files = getFilesInDir('dirToList',[CBTDIR filesep 'src'],'type', 'tracked', 'restrictToPattern', '^.*\.m$', 'checkSubFolders', true);
 coverageStruct(numel(files)).fileName = 'end';
 for i = 1:length(files)
     cFileName = files{i};

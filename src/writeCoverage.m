@@ -1,4 +1,4 @@
-function writeCoverage(coverageData, outputFile)
+function writeCoverage(coverageData, jsonFile)
 % Write the coverage data stored in the coverageData Struct into a json
 % file. 
 % USAGE:
@@ -11,14 +11,12 @@ function writeCoverage(coverageData, outputFile)
 %                        * .coverage - a n x 2 double array with n being the number of relevant lines in the file, while the first column indicates the line number and the second column indicates the number of executions
 %                        * .lineCount - the number of lines in the file.
 %
-%    outputFile:        The name of the outputfile (e.g. 'coverage.json')
+%    jsonFile:        The name of the outputfile (e.g. 'coverage.json')
 %
 %
 % AUTHOR:       Thomas Pfau 2018
 
-global CBTDIR
 
-jsonFile = fopen([CBTDIR filesep 'coverage2.json'],'w');
 fprintf(jsonFile,'{\n"service_job_id": "none",\n"service_name": "none",\n"source_files": [\n');
 
 for i = 1:numel(coverageData)
@@ -30,8 +28,7 @@ for i = 1:numel(coverageData)
     fprintf(jsonFile,'"source_digest": "%s",\n',md5);
     coverage = repmat({'null'},coverageData(i).lineCount,1);
     coverage(coverageData(i).relevantLines(:,1)) = arrayfun(@num2str, coverageData(i).relevantLines(:,2),'Uniform',0);
-    fprintf(jsonFile,'"coverage": [%s]\n }\n',strjoin(coverage,','));
-    
+    fprintf(jsonFile,'"coverage": [%s]\n }\n',strjoin(coverage,','));    
 end
 
 fprintf(jsonFile,']\n}\n');
